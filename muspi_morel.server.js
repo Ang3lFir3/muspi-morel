@@ -8,10 +8,15 @@ var port = process.env.PORT || 1337;
 console.log("ur port is " + port);
 
 http.createServer(function (req, res) {
+	res.writeHead(200, {'Content-Type': 'text/plain'});
+
 	var question = url.parse(req.url, true);
+	if(question.pathname == "/" && question.query.size == undefined){
+		res.end(" use a query string with the size value set to some number. ie: /?size=13 \n");
+	}
+
 	var query_size = question.query.size;
 
-	res.writeHead(200, {'Content-Type': 'text/plain'});
 	if(query_size > 0 && query_size <= core_text.length ){
 		var text = core_text.slice(0, query_size);
 		res.end(text.join(' ') + "\n");
