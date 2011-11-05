@@ -6,6 +6,19 @@ var core_text = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed d
 var port = process.env.PORT || 1337;
 console.log("ur port is " + port);
 
+var shuffle = function(words){
+	var length = words.length;
+	while(length > 1){
+		length = length -1;
+		var randLoc = parseInt(Math.random() *length);
+		var lefthand = words[length];
+		var righthand = words[randLoc];
+
+		words[randLoc] = lefthand;
+		words[length] = righthand; 
+	}
+}
+
 var app = express.createServer(express.logger());
 
 app.get('/', function(req, res){
@@ -15,6 +28,8 @@ app.get('/', function(req, res){
 app.get('/size/:size', function(req, res){
 	var query_size = parseInt(req.params.size);
 	console.log("I found a query for size : " + query_size + " of type" + typeof(query_size));
+	
+	shuffle(core_text);
 
 	if(isNaN(query_size)){
 		res.send("huh? why you gotta break stuff?\n make sure you are using a number, Jeff\n", 400);
