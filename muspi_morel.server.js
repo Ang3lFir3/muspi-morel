@@ -15,25 +15,25 @@ var shuffle = function(words){
 		var righthand = words[randLoc];
 
 		words[randLoc] = lefthand;
-		words[length] = righthand; 
+		words[length] = righthand;
 	}
 }
 
 var app = express.createServer(express.logger());
 
 app.get('/', function(req, res){
-	res.send("Usage ie: /size/13 \n", { 'Content-Type': 'text/plain' }, 200)
+	res.send("Usage ie: /size/13 \n /paragraph/2", { 'Content-Type': 'text/plain' }, 200)
 });
 
 app.get('/size/:size', function(req, res){
 	var query_size = parseInt(req.params.size);
 	console.log("I found a query for size : " + query_size + " of type" + typeof(query_size));
-	
-	shuffle(core_text);
 
 	if(isNaN(query_size)){
 		res.send("huh? why you gotta break stuff?\n make sure you are using a number, Jeff\n", 400);
 	}
+
+	shuffle(core_text);
 
 	if(query_size > 0 && query_size <= core_text.length ){
 		var text = core_text.slice(0, query_size);
@@ -48,6 +48,24 @@ app.get('/size/:size', function(req, res){
 		var text = core_text.slice(0, query_size)
 		res.send(text.join(' ') + "\n", 200);
 	}	
+});
+
+app.get('/paragraph/:count', function (request, response){
+	paragraph_count = request.params.count;
+
+	if(isNaN(paragraph_count)){
+		res.send("huh? why you gotta break stuff?\n make sure you are using a number, Jeff\n", 400);
+	}
+
+	var result = '';
+	for(var i = 0; i < paragraph_count; i++){
+		shuffle(core_text);
+
+		result = result + core_text.join(' ') + '\r\n\r\n';
+	}
+
+	response.send(result, 200);
+
 });
 
 
