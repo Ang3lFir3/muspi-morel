@@ -1,4 +1,5 @@
 var express = require('express');
+var moment = require('moment');
 
 var core_text = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum".split(' ');
 
@@ -25,7 +26,7 @@ app.get('/', function(req, res){
 	res.send("Usage ie: /size/13 \n /paragraph/2", { 'Content-Type': 'text/plain' }, 200)
 });
 
-app.get('/size/:size', fun	ction(req, res){
+app.get('/size/:size', function(req, res){
 	var query_size = parseInt(req.params.size);
 	console.log("I found a query for size : " + query_size + " of type" + typeof(query_size));
 
@@ -68,8 +69,19 @@ app.get('/paragraph/:count', function (request, response){
 
 });
 
-app.get('/date/:format', fucntion (request, response){
-	response.send("dude you need to ask a girl if you want a date",	200);
+app.get('/date/:format', function (request, response){
+	var month = Math.random() *11; //months are zero based.... yeah i know i cryed too 
+	var day = Math.random() *31;
+	var year = Math.random() *50 
+	if(parseInt(Math.random()*10%2) == 0 ){
+ 		year += 2000;	
+	}
+	else{
+		year = 2000 - year;
+	}
+
+	var the_date = moment(new Date(year,month,day));
+	response.send(moment(the_date).format(request.params.format.toUpperCase()) + '\n',	200);
 });
 
 
