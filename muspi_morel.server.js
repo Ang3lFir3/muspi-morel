@@ -23,15 +23,14 @@ var shuffle = function(words){
 var app = express.createServer(express.logger());
 
 app.get('/', function(req, res){
-	res.send("Usage ie: /size/13 \n /paragraph/2", { 'Content-Type': 'text/plain' }, 200)
+	res.send("Usage ie: /size/13 \n /paragraph/2 \n /date/yyyy-mm-dd", { 'Content-Type': 'text/plain' }, 200)
 });
 
 app.get('/size/:size', function(req, res){
 	var query_size = parseInt(req.params.size);
-	console.log("I found a query for size : " + query_size + " of type" + typeof(query_size));
 
 	if(isNaN(query_size)){
-		res.send("huh? why you gotta break stuff?\n make sure you are using a number, Jeff\n", 400);
+		res.send("huh? why you gotta break stuff?\n make sure you are using a number.\n", 400);
 	}
 
 	shuffle(core_text);
