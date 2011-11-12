@@ -25,7 +25,7 @@ app.get('/', function(req, res){
 	res.send("Usage ie: /size/13 \n /paragraph/2", { 'Content-Type': 'text/plain' }, 200)
 });
 
-app.get('/size/:size', function(req, res){
+app.get('/size/:size', fun	ction(req, res){
 	var query_size = parseInt(req.params.size);
 	console.log("I found a query for size : " + query_size + " of type" + typeof(query_size));
 
@@ -66,6 +66,10 @@ app.get('/paragraph/:count', function (request, response){
 
 	response.send(result, 200);
 
+});
+
+app.get('/date/:format', fucntion (request, response){
+	response.send("dude you need to ask a girl if you want a date",	200);
 });
 
 
