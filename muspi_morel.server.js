@@ -71,7 +71,12 @@ app.get('/paragraph/:count', function (request, response){
 app.get('/date/:format', function (request, response){
 	var month = Math.random() *11; //months are zero based.... yeah i know i cryed too 
 	var day = Math.random() *31;
-	var year = Math.random() *50 
+	var year = Math.random() *50
+       	
+	if(month == 1 && day > 28){
+		day = 28;
+	}
+
 	if(parseInt(Math.random()*10%2) == 0 ){
  		year += 2000;	
 	}
