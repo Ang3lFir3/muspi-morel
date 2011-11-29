@@ -30,14 +30,14 @@ app.get('/size/:size', function(req, res){
 	var query_size = parseInt(req.params.size);
 
 	if(isNaN(query_size)){
-		res.send("huh? why you gotta break stuff?\n make sure you are using a number.\n", 400);
+		res.send("huh? why you gotta break stuff?\n make sure you are using a number.", 400);
 	}
 
 	shuffle(core_text);
 
 	if(query_size > 0 && query_size <= core_text.length ){
 		var text = core_text.slice(0, query_size);
-		res.send(text.join(' ') + "\n", 200);
+		res.send(text.join(' ') , 200);
 	}
 	if(query_size > core_text.length ){
 		while(core_text.length < query_size){
@@ -46,7 +46,7 @@ app.get('/size/:size', function(req, res){
 		}
 		
 		var text = core_text.slice(0, query_size)
-		res.send(text.join(' ') + "\n", 200);
+		res.send(text.join(' ') , 200);
 	}	
 });
 
@@ -54,7 +54,7 @@ app.get('/paragraph/:count', function (request, response){
 	paragraph_count = request.params.count;
 
 	if(isNaN(paragraph_count)){
-		res.send("huh? why you gotta break stuff?\n make sure you are using a number, Jeff\n", 400);
+		res.send("huh? why you gotta break stuff?\n make sure you are using a number, Jeff", 400);
 	}
 
 	var result = '';
@@ -85,7 +85,7 @@ app.get('/date/:format', function (request, response){
 	}
 
 	var the_date = moment(new Date(year,month,day));
-	response.send(moment(the_date).format(request.params.format.toUpperCase()) + '\n',	200);
+	response.send(moment(the_date).format(request.params.format.toUpperCase()),	200);
 });
 
 
