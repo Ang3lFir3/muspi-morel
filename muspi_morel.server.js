@@ -60,13 +60,16 @@ app.get('/paragraph/:count', function (request, response){
 	var result = '';
 	for(var i = 0; i < paragraph_count; i++){
 		shuffle(core_text);
-
-		result = result + core_text.join(' ') + '\r\n\r\n';
+		result += core_text.join(' ') + '\r\n\r\n';
 	}
 
 	response.send(result, 200);
-
 });
+
+app.get('/shae', function (request, response))
+{
+  response.send("Hi shae", 200);
+}
 
 app.get('/date/:format', function (request, response){
 	var month = Math.random() *11; //months are zero based.... yeah i know i cryed too 
@@ -83,6 +86,7 @@ app.get('/date/:format', function (request, response){
 	else{
 		year = 2000 - year;
 	}
+
 
 	var the_date = moment(new Date(year,month,day));
 	response.send(moment(the_date).format(request.params.format.toUpperCase()),	200);
